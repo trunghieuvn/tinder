@@ -1,0 +1,18 @@
+# This file is a template, and might need editing before it works on your project.
+build-master:
+  # Official docker image.
+  image: cirrusci/flutter
+  stage: build
+  only:
+    - master
+  script:
+    - flutter build apk
+    - flutter test 
+
+  
+# test:
+#   # Official docker image.
+#   image: nathansamson/flutter-builder-docker
+#   stage: test
+#   script:
+#     - flutter test
