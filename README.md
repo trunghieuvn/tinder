@@ -1,4 +1,4 @@
-# tinder
+# random_profile_swipe_card
 
 A new Flutter project.
 

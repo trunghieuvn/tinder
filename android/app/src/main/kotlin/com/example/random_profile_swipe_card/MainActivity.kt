@@ -1,4 +1,4 @@
-package com.example.tinder
+package com.example.random_profile_swipe_card
 
 import android.os.Bundle
 
