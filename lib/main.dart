@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Random Profile Swipe Card',
+      title: 'Tinder :: Swipe Card',
       theme: ThemeData(
         primaryColor: MyColors.primaryColor,
         bottomAppBarColor: MyColors.primaryColor
