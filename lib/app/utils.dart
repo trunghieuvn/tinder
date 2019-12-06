@@ -1,6 +1,6 @@
 
+import 'package:package_info/package_info.dart';
 import 'package:tinder/app/configs.dart';
-import 'package:tinder/base/package_info.dart';
 
 void printLog(data) {
   if (CHEAT == true || buildFlavor != BuildFlavor.production) {
