@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tinder/app/screens/dashboard_screen.dart';
 import 'package:tinder/app/styles.dart';
+import 'package:tinder/app/utils.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,14 +16,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    
+    appSetup();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.transparent, //or set color with: Color(0xFF0000FF)
+        statusBarColor: Colors.transparent, //or set color with: Color(0xFF0000FF)
       )
     );
   
