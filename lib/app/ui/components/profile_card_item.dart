@@ -8,8 +8,8 @@ import 'package:tinder/app/ui/widgets/circle_image_outline.dart';
 import 'package:tinder/app/utils.dart';
 
 abstract class CardSwipeListenr  {
-  void moveToLeft();
-  void moveToRight();
+  void moveToLeft({User user});
+  void moveToRight({User user});
 }
 
 class ProfileCardItem extends StatefulWidget {
@@ -93,7 +93,10 @@ class _ProfileCardItemState extends State<ProfileCardItem> with SingleTickerProv
     }
     else {
 
-      widget.onReleaseCallback(_offset.dx );
+      widget.onReleaseCallback(
+        _offset.dx,
+        user: widget.user 
+      );
     }
     _controller.stop();
     _controller.value = 0.0;

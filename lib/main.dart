@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tinder/app/screens/dashboard_screen.dart';
 import 'package:tinder/app/styles.dart';
 import 'package:tinder/app/utils.dart';
+import 'package:tinder/base/user_default.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +28,9 @@ class _MyAppState extends State<MyApp> {
         statusBarColor: Colors.transparent, //or set color with: Color(0xFF0000FF)
       )
     );
+    UserDefault.getInstance().init().then((onValue){
+      printLog("[DataSAVE] ${UserDefault.getInstance().getString("KEY")}");
+    });
   
     super.initState();
   }

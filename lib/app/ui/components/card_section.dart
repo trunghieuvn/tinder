@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tinder/app/blocs/profile_card_page_bloc.dart';
+import 'package:tinder/app/models/user.dart';
 import 'package:tinder/app/ui/components/card_animations.dart';
 import 'package:tinder/app/ui/components/profile_card_item.dart';
 
@@ -48,9 +49,9 @@ class _CardSectionState extends State<CardSection> with SingleTickerProviderStat
     super.initState();
   }
   
-  void changeCardOder(double dx) async{
+  void changeCardOder(double dx, {User user}) async{
     if(dx > 0) {
-      widget.profileCardBloc.moveToRight();
+      widget.profileCardBloc.moveToRight(user : user);
     } else {
       widget.profileCardBloc.moveToLeft();
     }

@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:tinder/app/ui/components/profile_card_item.dart';
 import 'package:tinder/app/utils.dart';
 import 'package:tinder/base/bloc_base.dart';
 import 'package:tinder/app/models/user.dart';
+import 'package:tinder/base/user_default.dart';
 
 enum ProfileCardState { INITIAL, LOADING, NONE}
 
@@ -58,12 +60,41 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
   }
 
   @override
-  void moveToLeft() {
+  void moveToLeft({User user}) {
     printLog("[ProfileCardBLoc] moveToLeft");
   }
 
   @override
-  void moveToRight() {
-    printLog("[ProfileCardBLoc] moveToRight");
+  void moveToRight({User user}) {
+    printLog("[ProfileCardBLoc] moveToRight ${user.toJson()}");
+
+    UserData userData = UserData(
+      user,
+      "1ae1fa01b3701f60",
+      "0.4"
+    );
+    List<UserData> list = List();
+    list.add(userData);
+    ResultUser resultUser = ResultUser(list);
+
+    String datas = json.encode(resultUser);
+    printLog("data user: $datas");
+
+    var data = UserDefault.getInstance().getString("KEY");
+    if(data == null || data.isEmpty) {
+      UserDefault.getInstance().setString("KEY", datas);
+    } else {
+      var result  = ResultUser.fromJson(json.decode(data));
+      result.users.addAll(resultUser.users);
+      printLog("new data: ${result.users.length}");
+
+      datas = json.encode(result);
+      UserDefault.getInstance().setString("KEY", datas);
+
+      printLog("new data: $datas");
+    }
+    
+    
+
   }
 }
