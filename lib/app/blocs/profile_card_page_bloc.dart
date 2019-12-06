@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:tinder/app/ui/components/profile_card_item.dart';
+import 'package:tinder/app/utils.dart';
 import 'package:tinder/base/bloc_base.dart';
 import 'package:tinder/app/models/user.dart';
 
 enum ProfileCardState { INITIAL, LOADING, NONE}
 
-class ProfileCardBloc extends BlocBase {
+class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
   // ---------------- STREAM ----------------
   final StreamController<ProfileCardState> _controller;
   ProfileCardBloc() : _controller = StreamController<ProfileCardState>.broadcast();
@@ -53,5 +55,15 @@ class ProfileCardBloc extends BlocBase {
   @override
   void dispose() {
     _controller?.close();
+  }
+
+  @override
+  void moveToLeft() {
+    printLog("[ProfileCardBLoc] moveToLeft");
+  }
+
+  @override
+  void moveToRight() {
+    printLog("[ProfileCardBLoc] moveToRight");
   }
 }

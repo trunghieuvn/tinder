@@ -8,6 +8,7 @@ double maxPerWidthBack = 0.9, maxPerHeightBack = 0.7;
 
 class CardSection extends StatefulWidget {
   final ProfileCardBloc profileCardBloc;
+  CardSwipeListenr cardSwipeListenr; 
   
   CardSection (BuildContext context, this.profileCardBloc) {
     contextSize = Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
@@ -32,7 +33,7 @@ class _CardSectionState extends State<CardSection> with SingleTickerProviderStat
           onReleaseCallback: changeCardOder, 
           onCardRollBackCallBack: _onCardRollBack,
           onComplete: _onCardReleaseCompleted,
-          user: user
+          user: user,
         )
       );
     });
@@ -47,7 +48,13 @@ class _CardSectionState extends State<CardSection> with SingleTickerProviderStat
     super.initState();
   }
   
-  void changeCardOder() async{
+  void changeCardOder(double dx) async{
+    if(dx > 0) {
+      widget.profileCardBloc.moveToRight();
+    } else {
+      widget.profileCardBloc.moveToLeft();
+    }
+
     await widget.profileCardBloc.addUser(
       onResponse: (user){
         cards.add(

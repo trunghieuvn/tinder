@@ -7,6 +7,11 @@ import 'package:tinder/app/ui/components/card_animations.dart';
 import 'package:tinder/app/ui/widgets/circle_image_outline.dart';
 import 'package:tinder/app/utils.dart';
 
+abstract class CardSwipeListenr  {
+  void moveToLeft();
+  void moveToRight();
+}
+
 class ProfileCardItem extends StatefulWidget {
   final User user;
   final Function onCardPanUpdateCallBack, onReleaseCallback, onCardRollBackCallBack, onComplete;
@@ -16,7 +21,7 @@ class ProfileCardItem extends StatefulWidget {
     this.onReleaseCallback, 
     this.onCardRollBackCallBack,
     this.onComplete, 
-    this.user
+    this.user,
   }) : super(key: UniqueKey());
 
   @override
@@ -60,8 +65,6 @@ class _ProfileCardItemState extends State<ProfileCardItem> with SingleTickerProv
   }
 
   _onCardPanUpdate(DragUpdateDetails details, BuildContext context) {
-    printLog("[_onCardPanUpdate] draw");
-
     setState(() {
       //translate card
       _offset = Offset(
@@ -89,9 +92,8 @@ class _ProfileCardItemState extends State<ProfileCardItem> with SingleTickerProv
       widget.onCardRollBackCallBack();
     }
     else {
-      printLog("[ProfileCardItem] swipe release: ${_offset.dx} right: ${_offset.dx > 0}}");
 
-      widget.onReleaseCallback();
+      widget.onReleaseCallback(_offset.dx );
     }
     _controller.stop();
     _controller.value = 0.0;
