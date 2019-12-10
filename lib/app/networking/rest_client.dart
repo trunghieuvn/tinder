@@ -11,7 +11,7 @@ part 'rest_client.g.dart';
 abstract class RestClient {
   factory RestClient(Dio dio) = _RestClient;
 
-  // ----------- VIDEO -----------
+  // -----------  -----------
   @GET("0.4/?randomapi")
   Future<ResultUser> getUser();
  

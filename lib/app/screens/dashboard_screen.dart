@@ -5,6 +5,7 @@ import 'package:tinder/app/screens/profile_card/profile_card_page.dart';
 import 'package:tinder/app/styles.dart';
 import 'package:tinder/app/ui/widgets/bottom_bar_icon.dart';
 import 'package:tinder/app/utils.dart';
+import 'package:toast/toast.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -49,7 +50,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ],
   );
 
-
+  @override
+  void initState() {
+    
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     Dimension.height = MediaQuery.of(context).size.height;
@@ -87,45 +93,50 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: Icons.refresh,
             iconColor: Colors.orange,
             onPressed: (){
-              _profileCardBloc.switchModeData();
-              setState(() {});
+              _switchmode();
             },
           ),
           ButtomBarIcon.large(
             icon: Icons.clear,
             iconColor: Colors.black,
             onPressed: (){
-              _profileCardBloc.switchModeData();
-              setState(() {});
+              _switchmode();
             },
           ),
           ButtomBarIcon.small(
             icon: Icons.star,
             iconColor: Colors.blue,
             onPressed: (){
-              _profileCardBloc.switchModeData();
-              setState(() {});
+              _switchmode();
             },
           ),
           ButtomBarIcon.large(
             icon: Icons.favorite,
             iconColor: ProfileCardBloc.isFavourite ? Colors.pinkAccent : Colors.pink[50],
             onPressed: (){
-              _profileCardBloc.switchModeData();
-              setState(() {});
+              _switchmode();
             },
           ),
           ButtomBarIcon.small(
             icon: Icons.lock,
             iconColor: Colors.orange,
             onPressed: (){
-              _profileCardBloc.switchModeData();
-              setState(() {});
-            },
+             _switchmode();
+            }
           )
-        ],
-      ),
+        ]
+      )
     )
   );
-  
+
+  _switchmode() {
+    _profileCardBloc.switchModeData();
+    setState(() {});
+    if(ProfileCardBloc.isFavourite) {
+      Toast.show("7. My favourite list of people should be available offline also.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+    }
+    else {
+      Toast.show("4. If I swipe left I get the details of the next person from the API.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+    }
+  }
 }   

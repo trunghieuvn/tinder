@@ -25,8 +25,7 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
   Future<void> getUser() async{
     changeListState(ProfileCardState.LOADING);
 
-    if(ProfileCardBloc.isFavourite == true){
-      
+    if(ProfileCardBloc.isFavourite == true) {
       printLog("[ProfileCardBLoc] get data with FAVOURITE $currentFavourite");
       var result = await getDataFavourite();
 
@@ -37,20 +36,18 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
         }
       } 
       changeListState(ProfileCardState.NONE);
-      
-    }else{ 
+    }else { 
       printLog("[ProfileCardBLoc] get data with API");
 
       Future.wait([
-      appApiService.client.getUser(), 
-      appApiService.client.getUser(), 
-      appApiService.client.getUser()
+        appApiService.client.getUser(), 
+        appApiService.client.getUser(), 
+        appApiService.client.getUser()
       ])
       .then((List results) {
         results.forEach((result) {
           users.add(result.users[0].user);
         });
-        
         changeListState(ProfileCardState.NONE);
       })
       .catchError((onError) {
@@ -61,9 +58,7 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
   }
   
   Future<void> addUser({Function(User user) onResponse}) async{
-
     if(ProfileCardBloc.isFavourite == true){
-      
       printLog("[ProfileCardBLoc] addUser with FAVOURITE $currentFavourite");
       var result = await getDataFavourite();
 
@@ -75,8 +70,7 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
         }
       } 
 
-    }else{
-
+    } else {
       printLog("[ProfileCardBLoc] addUser with API ${ProfileCardBloc.isFavourite} $currentFavourite");
       var result = await appApiService.client.getUser();
 
@@ -84,9 +78,7 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
         users.add(result.users[0].user);
         onResponse(result.users[0].user);
       }
-
     }
-    
   }
 
   Future<ResultUser> getDataFavourite() async{
@@ -148,9 +140,8 @@ class ProfileCardBloc extends BlocBase implements CardSwipeListenr {
 
   @override
   void switchModeData() {
-    printLog("---------------- change mode data -----------------------");
+    printLog("[ProfileCardBloc] change mode data");
     ProfileCardBloc.isFavourite = !ProfileCardBloc.isFavourite;
     getUser();
   }
-
 }
