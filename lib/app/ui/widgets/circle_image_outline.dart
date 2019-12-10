@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'circle_image.dart';
 
 class CircleImageOutline extends StatelessWidget {
@@ -36,10 +37,33 @@ class CircleImageOutline extends StatelessWidget {
           border: Border.all(color: borderColor, width: borderWidth),
           color: backgroundColor
         ),
-        child: CircleImage(
-          image: isUrlImage? Image.network(image, width: diameter, height: diameter, fit: BoxFit.cover,) : Image.asset(image, width: diameter, height: diameter, fit: BoxFit.cover,),
-        ),
-      ),
+        child: isUrlImage ?  CachedNetworkImage(
+          imageUrl: image,
+          imageBuilder: (context, imageProvider){
+            return CircleImage(
+              image: Image(
+                image: imageProvider,
+                width: diameter, 
+                height: diameter,
+                fit: BoxFit.cover
+              )
+            );
+          },
+          errorWidget: (context, url, error) => CircleImage(
+            image : Image.asset(
+              image, 
+              width: diameter, 
+              height: diameter, 
+              fit: BoxFit.cover
+            )
+          )
+        ) : Image.asset(
+          image, 
+          width: diameter, 
+          height: diameter, 
+          fit: BoxFit.cover
+        )
+      )
     );
   }
 }

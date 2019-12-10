@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder/app/blocs/profile_card_page_bloc.dart';
 
 import 'package:tinder/app/screens/profile_card/profile_card_page.dart';
 import 'package:tinder/app/styles.dart';
@@ -11,6 +12,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  ProfileCardBloc _profileCardBloc = ProfileCardBloc();
   AppBar appBar = AppBar(      
     centerTitle: true,
     elevation: 0.0,
@@ -85,35 +87,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: Icons.refresh,
             iconColor: Colors.orange,
             onPressed: (){
-              //TODO:
+              _profileCardBloc.switchModeData();
+              setState(() {});
             },
           ),
           ButtomBarIcon.large(
             icon: Icons.clear,
             iconColor: Colors.black,
             onPressed: (){
-              // TODO:
+              _profileCardBloc.switchModeData();
+              setState(() {});
             },
           ),
           ButtomBarIcon.small(
             icon: Icons.star,
             iconColor: Colors.blue,
             onPressed: (){
-              // TODO:
+              _profileCardBloc.switchModeData();
+              setState(() {});
             },
           ),
           ButtomBarIcon.large(
             icon: Icons.favorite,
-            iconColor: Colors.pinkAccent,
+            iconColor: ProfileCardBloc.isFavourite ? Colors.pinkAccent : Colors.pink[50],
             onPressed: (){
-              // TODO:
+              _profileCardBloc.switchModeData();
+              setState(() {});
             },
           ),
           ButtomBarIcon.small(
             icon: Icons.lock,
             iconColor: Colors.orange,
             onPressed: (){
-              // TODO:
+              _profileCardBloc.switchModeData();
+              setState(() {});
             },
           )
         ],

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:tinder/app/blocs/profile_card_page_bloc.dart';
 
 import 'package:tinder/app/models/user.dart';
 import 'package:tinder/app/styles.dart';
@@ -10,6 +11,7 @@ import 'package:tinder/app/utils.dart';
 abstract class CardSwipeListenr  {
   void moveToLeft({User user});
   void moveToRight({User user});
+  void switchModeData();
 }
 
 class ProfileCardItem extends StatefulWidget {
@@ -194,20 +196,26 @@ class _ProfileCardItemState extends State<ProfileCardItem> with SingleTickerProv
                               )
                             ),
                             SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.mail_outline, size: 40, color: Colors.grey,),
-                                SizedBox(width: 10,),
-                                Icon(Icons.people_outline, size: 40, color: Colors.grey),
-                                SizedBox(width: 10,),
-                                Icon(Icons.data_usage, size: 40, color: Colors.green),
-                                SizedBox(width: 10,),
-                                Icon(Icons.chat_bubble_outline, size: 40, color: Colors.grey,),
-                                SizedBox(width: 10,),
-                                Icon(Icons.lock_outline, size: 40, color: Colors.grey,),
-                              ]
+                            GestureDetector(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.mail_outline, size: 40, color: Colors.grey,),
+                                  SizedBox(width: 10,),
+                                  Icon(Icons.people_outline, size: 40, color: Colors.grey),
+                                  SizedBox(width: 10,),
+                                  Icon(Icons.data_usage, size: 40, color: Colors.green),
+                                  SizedBox(width: 10,),
+                                  Icon(Icons.chat_bubble_outline, size: 40, color: Colors.grey,),
+                                  SizedBox(width: 10,),
+                                  Icon(Icons.lock_outline, size: 40, color: Colors.grey,),
+                                ]
+                              ),
+                              onTap: () { 
+                                widget.onComplete();
+                                widget.onReleaseCallback(-1.0);
+                              }
                             )
                           ]
                         )
@@ -218,7 +226,7 @@ class _ProfileCardItemState extends State<ProfileCardItem> with SingleTickerProv
                 GestureDetector(
                   onPanUpdate: (details) => _onCardPanUpdate(details, context),
                   onPanEnd: (_) => _onCardPanEnd(),
-                  onTapUp: (details) => _onTapUp(details, context)
+                  // onTapUp: (details) => _onTapUp(details, context)
                 )
               ]
             )
